@@ -32,3 +32,25 @@ Scenario: can't find similar movies if we don't know director (sad path)
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+  
+Scenario: remove a movie
+  Given I am on the home page
+  When  I follow "More about Blade Runner"
+  And   I press "Delete"
+  Then  I should see "Movie 'Blade Runner' deleted."
+  And   I should not see "More about Blade Runner"
+  
+Scenario: add new movies
+  When I go to the new movie page
+  And  I fill in "Title" with "Fengqiao Wang the Chinese"
+  And  I fill in "Director" with "GoodMan"
+  And  I select "R" from "Rating"
+  And  I press "Save Changes"
+  Then I should see "Fengqiao Wang the Chinese"
+  And  I should see "GoodMan"
+
+Scenario: view details about a movie
+  Given I am on the home page
+  When  I follow "More about THX-1138"
+  Then  I should see "Details about THX-1138"
+  And   I should see "Director: George Lucas"
